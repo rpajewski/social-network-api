@@ -1,28 +1,28 @@
 const addDateSuffix = date => {
-  let dateStr = date.toString();
+  let dateStr = date.toString()
 
   // get last char of date string
-  const lastChar = dateStr.charAt(dateStr.length - 1);
+  const lastChar = dateStr.charAt(dateStr.length - 1)
 
   if (lastChar === '1' && dateStr !== '11') {
-    dateStr = `${dateStr}st`;
+    dateStr = `${dateStr}st`
   } else if (lastChar === '2' && dateStr !== '12') {
-    dateStr = `${dateStr}nd`;
+    dateStr = `${dateStr}nd`
   } else if (lastChar === '3' && dateStr !== '13') {
-    dateStr = `${dateStr}rd`;
+    dateStr = `${dateStr}rd`
   } else {
-    dateStr = `${dateStr}th`;
+    dateStr = `${dateStr}th`
   }
 
   return dateStr;
-};
+}
 
 // function to format a timestamp, accepts the timestamp and an `options` object as optional parameters
 module.exports = (
   timestamp,
   { monthLength = 'short', dateSuffix = true } = {}
 ) => {
-  let months;
+  let months
 
   if (monthLength === 'short') {
     months = {
@@ -38,7 +38,7 @@ module.exports = (
       9: 'Oct',
       10: 'Nov',
       11: 'Dec'
-    };
+    }
   } else {
     months = {
       0: 'January',
@@ -53,46 +53,46 @@ module.exports = (
       9: 'October',
       10: 'November',
       11: 'December'
-    };
+    }
   }
 
-  const dateObj = new Date(timestamp);
-  const formattedMonth = months[dateObj.getMonth()];
+  const dateObj = new Date(timestamp)
+  const formattedMonth = months[dateObj.getMonth()]
 
-  let dayOfMonth;
+  let dayOfMonth
 
   if (dateSuffix) {
-    dayOfMonth = addDateSuffix(dateObj.getDate());
+    dayOfMonth = addDateSuffix(dateObj.getDate())
   } else {
-    dayOfMonth = dateObj.getDate();
+    dayOfMonth = dateObj.getDate()
   }
 
-  const year = dateObj.getFullYear();
+  const year = dateObj.getFullYear()
 
-  let hour;
+  let hour
   // check for 24-hr time
   if (dateObj.getHours > 12) {
-    hour = Math.floor(dateObj.getHours() / 2);
+    hour = Math.floor(dateObj.getHours() / 2)
   } else {
     hour = dateObj.getHours();
   }
   // if hour is 0 (12:00am), change it to 12
   if (hour === 0) {
-    hour = 12;
+    hour = 12
   }
 
-  const minutes = dateObj.getMinutes();
+  const minutes = dateObj.getMinutes()
 
   // set `am` or `pm`
-  let periodOfDay;
+  let periodOfDay
 
   if (dateObj.getHours() >= 12) {
-    periodOfDay = 'pm';
+    periodOfDay = 'pm'
   } else {
-    periodOfDay = 'am';
+    periodOfDay = 'am'
   }
 
-  const formattedTimeStamp = `${formattedMonth} ${dayOfMonth}, ${year} at ${hour}:${minutes} ${periodOfDay}`;
+  const formattedTimeStamp = `${formattedMonth} ${dayOfMonth}, ${year} at ${hour}:${minutes} ${periodOfDay}`
 
-  return formattedTimeStamp;
-};
+  return formattedTimeStamp
+}
