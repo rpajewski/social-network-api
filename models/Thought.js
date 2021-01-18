@@ -56,7 +56,7 @@ const ThoughtSchema = new Schema({
 )
 
 // friend count
-UserSchema.virtual('reactionCount').get(function() {
+ThoughtSchema.virtual('reactionCount').get(function() {
     return this.reactions.length
 })
 
